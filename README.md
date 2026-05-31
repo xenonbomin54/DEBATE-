@@ -1,16 +1,12 @@
-# React + Vite
+# DEBATE!
+**DEBATE!**는 논리적인 **토론과 논쟁**을 즐기는 시민에게 적절한 장소를 제공합니다. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 1. 기능
+1-1. 사용자는 주제를 정해 **광장**이라는 토론 장을 개설할 수 있습니다. **광장**에서 사용자들은 자유롭게 **토론**할 수 있습니다.
+1-2. 사용자는 특정한 주제에 대해 이용자들의 의견을 듣는 **항아리**를 만들 수 있습니다. 항아리는 일종의 설문조사이자 투표로 다양한 의견을 받을 수 있습니다.
+1-3. 사용자는 다른 원하는 사용자에게 **비둘기**를 보내 개인적인 대화를 나눌 수 있습니다. 날아온 비둘기는 거절할 수 있으며, 모든 내역은 로그에 남습니다.
 
-Currently, two official plugins are available:
+## 2. 기술
+2-1. DEBATE!는 React.js 기술을 이용하여 제작되었습니다.
+2-2. DEBATE!는 추후 React Native 등을 이용해 안드로이드, ios, windows, mac os용 앱으로도 개발될 예정입니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
