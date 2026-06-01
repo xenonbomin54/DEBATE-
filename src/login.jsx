@@ -41,6 +41,8 @@ function GO({ vvalue }) {
 }
 
 export default function App() {
+  const [isLogin, setIsLogin] = useState(true);
+
   return (
     <div style={{ 
       padding: '20px', 
@@ -59,15 +61,32 @@ export default function App() {
         width: '300px', 
         textAlign: 'center' 
       }}>
-        <h2>로그인</h2>
-        <div>
-          <Inputt title="아이디" color="#000000" type="text" />
-          <Inputt title="비밀번호" color="#000000" type="password" />
-          <p style={{ fontSize: '14px', marginTop: '10px', color: '#555555' }}>
-            계정이 없으신가요? <a href="#" style={{ color: '#00c8ff', textDecoration: 'underline' }}>회원가입</a>
-          </p>
-          <GO vvalue="로그인" />
-        </div>
+        {isLogin ? (
+          <div>
+            <h2>로그인</h2>
+            <div>
+              <Inputt title="아이디" color="#000000" type="text" />
+              <Inputt title="비밀번호" color="#000000" type="password" />
+              <p style={{ fontSize: '14px', marginTop: '10px', color: '#555555' }}>
+                계정이 없으신가요? <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(false); }} style={{ color: '#00c8ff', textDecoration: 'underline' }}>회원가입</a>
+              </p>
+              <GO vvalue="로그인" />
+            </div>
+          </div>
+        ) : (
+          <div>
+            <h2>회원가입</h2>
+            <div>
+              <Inputt title="아이디" color="#000000" type="text" />
+              <Inputt title="비밀번호" color="#000000" type="password" />
+              <Inputt title="비밀번호 확인" color="#000000" type="password" />
+              <p style={{ fontSize: '14px', marginTop: '10px', color: '#555555' }}>
+                이미 계정이 있으신가요? <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(true); }} style={{ color: '#00c8ff', textDecoration: 'underline' }}>로그인</a>
+              </p>
+              <GO vvalue="회원가입" />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
