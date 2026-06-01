@@ -1,14 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Inputt({ title, color, type }) {
   const [isFocused, setIsFocused] = useState(false);
-  
+
   return (
     <input
       type={type}
       placeholder={title}
       onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)} 
+      onBlur={() => setIsFocused(false)}
       style={{
         color: color,
         border: 'none',
@@ -23,17 +24,17 @@ function Inputt({ title, color, type }) {
   );
 }
 
-function GO({ vvalue }) {
+function GO({ vvalue, onClick }) {
   return (
-    <button style={{
-      marginTop: '30px', 
-      padding: '10px 20px', 
-      borderRadius: '4px', 
-      backgroundColor: '#00c8ff', 
-      color: '#FFFFFF', 
-      border: 'none', 
-      fontSize: '16px', 
-      cursor: 'pointer' 
+    <button onClick={onClick} style={{
+      marginTop: '30px',
+      padding: '10px 20px',
+      borderRadius: '4px',
+      backgroundColor: '#00c8ff',
+      color: '#FFFFFF',
+      border: 'none',
+      fontSize: '16px',
+      cursor: 'pointer'
     }}>
       {vvalue}
     </button>
@@ -42,24 +43,25 @@ function GO({ vvalue }) {
 
 export default function App() {
   const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
 
   return (
-    <div style={{ 
-      padding: '20px', 
-      fontFamily: 'sans-serif', 
-      display: 'flex', 
-      flexDirection: 'column', 
-      alignItems: 'center', 
+    <div style={{
+      padding: '20px',
+      fontFamily: 'sans-serif',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
       gap: '20px'
     }}>
       <img src="./public/Union.png" alt="로고" style={{ width: '150px', height: '150px', marginBottom: '50px', marginTop: '20px' }} />
-      
-      <div style={{ 
-        padding: '20px', 
-        borderRadius: '8px', 
-        backgroundColor: 'rgba(255, 255, 255, 0.7)', 
-        width: '300px', 
-        textAlign: 'center' 
+
+      <div style={{
+        padding: '20px',
+        borderRadius: '8px',
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        width: '300px',
+        textAlign: 'center'
       }}>
         {isLogin ? (
           <div>
@@ -70,7 +72,7 @@ export default function App() {
               <p style={{ fontSize: '14px', marginTop: '10px', color: '#555555' }}>
                 계정이 없으신가요? <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(false); }} style={{ color: '#00c8ff', textDecoration: 'underline' }}>회원가입</a>
               </p>
-              <GO vvalue="로그인" />
+              <GO vvalue="로그인" onClick={() => navigate('/first')} />
             </div>
           </div>
         ) : (
@@ -83,7 +85,7 @@ export default function App() {
               <p style={{ fontSize: '14px', marginTop: '10px', color: '#555555' }}>
                 이미 계정이 있으신가요? <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(true); }} style={{ color: '#00c8ff', textDecoration: 'underline' }}>로그인</a>
               </p>
-              <GO vvalue="회원가입" />
+              <GO vvalue="회원가입" onClick={(e) => { e.preventDefault(); setIsLogin(true); }}/>
             </div>
           </div>
         )}
