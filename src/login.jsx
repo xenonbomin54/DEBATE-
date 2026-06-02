@@ -54,6 +54,21 @@ async function sgu(setIsLogin) {
       console.log('회원가입 성공:', data)
       setIsLogin(true)
     }
+    const { error: dbError } = await supabase
+      .from('user')
+      .insert([
+        { 
+          id: data.user.id,
+          email: data.user.email
+        }
+      ]);
+
+    if (dbError) {
+      console.error('user 테이블 저장 실패:', dbError.message);
+    } else {
+      console.log('user 테이블 저장 성공!');
+      setIsLogin(true);
+    }
   }
 }
 
@@ -118,7 +133,7 @@ export default function App() {
           <div>
             <h2>로그인</h2>
             <div>
-              <Inputt title="아이디" color="#000000" type="text" id="username1" />
+              <Inputt title="아이디(email)" color="#000000" type="text" id="username1" />
               <Inputt title="비밀번호" color="#000000" type="password" id="password1" />
               <p style={{ fontSize: '14px', marginTop: '10px', color: '#555555' }}>
                 계정이 없으신가요? <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(false); }} style={{ color: '#00c8ff', textDecoration: 'underline' }}>회원가입</a>
