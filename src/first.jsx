@@ -7,14 +7,16 @@ export default function First() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function getUserEmail() {
+    async function checkAuth() {
       const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
+      if (!user) {
+        navigate('/');
+      } else {
         setEmail(user.email);
       }
     }
-    getUserEmail();
-  }, []);
+    checkAuth();
+  }, [navigate]);
 
   async function handleLogout(e) {
     e.preventDefault();

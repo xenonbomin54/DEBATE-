@@ -110,6 +110,14 @@ export default function App() {
     }
 
     fetchData();
+
+    async function checkAuth() {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) {
+    navigate('/first'); 
+  }
+}
+checkAuth();
   }, []);
 
   return (
