@@ -59,7 +59,8 @@ async function sgu(setIsLogin) {
       .insert([
         { 
           id: data.user.id,
-          email: data.user.email
+          email: data.user.email,
+          nickname: document.getElementById('nickname1').value
         }
       ]);
 
@@ -133,7 +134,7 @@ export default function App() {
           <div>
             <h2>로그인</h2>
             <div>
-              <Inputt title="아이디(email)" color="#000000" type="text" id="username1" />
+              <Inputt title="이메일" color="#000000" type="text" id="username1" />
               <Inputt title="비밀번호" color="#000000" type="password" id="password1" />
               <p style={{ fontSize: '14px', marginTop: '10px', color: '#555555' }}>
                 계정이 없으신가요? <a href="#" onClick={(e) => { e.preventDefault(); setIsLogin(false); }} style={{ color: '#00c8ff', textDecoration: 'underline' }}>회원가입</a>
@@ -145,7 +146,8 @@ export default function App() {
           <div>
             <h2>회원가입</h2>
             <div>
-              <Inputt title="아이디" color="#000000" type="text" id="username2" />
+              <Inputt title="이메일" color="#000000" type="text" id="username2" />
+              <Inputt title="닉네임" color="#000000" type="text" id="nickname1" />
               <Inputt title="비밀번호" color="#000000" type="password" id="password2" />
               <Inputt title="비밀번호 확인" color="#000000" type="password" id="password3" />
               <p style={{ fontSize: '14px', marginTop: '10px', color: '#555555' }}>
