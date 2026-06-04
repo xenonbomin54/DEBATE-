@@ -29,9 +29,9 @@ export default function First() {
   }
  
   return (
-    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
-      <h1>첫 페이지</h1>
-      <p>환영합니다. 당신의 아이디는 "{email}"입니다.</p>
+    <div style={{ padding: '20px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.7)', width: '300px', textAlign: 'center' }}>
+      <h1>논쟁의 즐거움, DEBATE!</h1>
+      <p>환영합니다 "{email}"님<br />지금 바로 토론을 시작해보세요</p>
       <a href="#" onClick={handleLogout} style={{ color: '#000000', textDecoration: 'underline' }}>로그아웃</a>
     </div>
   );
