@@ -29,10 +29,12 @@ export default function First() {
   }
  
   return (
-    <div style={{ padding: '20px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.7)', width: '300px', textAlign: 'center' }}>
-      <h1>논쟁의 즐거움, DEBATE!</h1>
-      <p>환영합니다 "{email}"님<br />지금 바로 토론을 시작해보세요</p>
-      <a href="#" onClick={handleLogout} style={{ color: '#000000', textDecoration: 'underline' }}>로그아웃</a>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div style={{ padding: '20px', borderRadius: '8px', backgroundColor: 'rgba(255, 255, 255, 0.7)', width: '300px', textAlign: 'center' }}>
+        <h1>논쟁의 즐거움, DEBATE!</h1>
+        <p>환영합니다 "{email}"님<br />지금 바로 토론을 시작해보세요</p>
+        <a href="#" onClick={handleLogout} style={{ color: '#000000', textDecoration: 'underline' }}>로그아웃</a>
+      </div>
     </div>
   );
 }
