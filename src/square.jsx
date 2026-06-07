@@ -2,6 +2,18 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabase.js';
 
+function AAA() {
+    return (
+      <div style={{ width: '45vw', height: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '15px'  }}></div>  
+    )
+  }
+
+function BBB() {
+    return (
+      <div style={{ width: '45vw', height: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '15px'  }}></div>  
+    )
+  }
+
 export default function Square() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
@@ -29,19 +41,25 @@ export default function Square() {
   }
  
   return (
-    <div style={{ display: 'flex', height: '8vh' }}>
-      <div style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', width: '100vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
-        <div>
-          <h1 style={{ fontSize: '3vh', cursor: 'pointer' }} onClick={() => navigate('/square')}>DEBATE!</h1>
-        </div>
-        <div>
-          <a onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#000000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>비둘기</a>
-          <a onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#000000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>광장</a>
-          <a onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#000000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>항아리투표</a>
-          <a onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#000000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>마이페이지</a>
-          <a href="#" onClick={handleLogout} onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#ff0000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>로그아웃</a>
+    <>
+      <div style={{ display: 'flex', height: '8vh' }}>
+        <div style={{ padding: '20px', backgroundColor: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', width: '100vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
+          <div>
+            <h1 style={{ fontSize: '3vh', cursor: 'pointer' }} onClick={() => navigate('/square')}>DEBATE!</h1>
+          </div>
+          <div>
+            <a onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#000000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>비둘기</a>
+            <a onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#000000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>광장</a>
+            <a onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#000000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>항아리투표</a>
+            <a onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#000000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>마이페이지</a>
+            <a href="#" onClick={handleLogout} onMouseEnter={(e) => (e.target.style.scale = '1.1')} onMouseLeave={(e) => (e.target.style.scale = '1')} style={{ margin: '0 10px', color: '#ff0000', cursor: 'pointer', transition: '0.3s', textDecoration: 'none', scale: '1', display: 'inline-block' }}>로그아웃</a>
+          </div>
         </div>
       </div>
-    </div>
+      <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: '92vh' }} >
+        <AAA />
+        <BBB />
+      </div>
+    </>
   );
 }
