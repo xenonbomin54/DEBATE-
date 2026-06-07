@@ -4,13 +4,15 @@ import { supabase } from './supabase.js';
 
 function AAA() {
     return (
-      <div style={{ width: '45vw', height: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '15px'  }}></div>  
+      <div style={{ width: '45vw', height: '80vh', borderRadius: '15px', display: 'flex', flexDirection: 'column' }}>
+        <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>+</button>
+      </div>  
     )
   }
 
 function BBB() {
     return (
-      <div style={{ width: '45vw', height: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '15px'  }}></div>  
+      <div style={{ width: '45vw', height: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '15px' }}></div>  
     )
   }
 
