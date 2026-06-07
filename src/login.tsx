@@ -2,7 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabase.js';
 
-function Inputt({ title, color, type, id }) {
+interface InputtProps {
+  title: string;
+  color: string;
+  type: string;
+  id: string;
+}
+
+function Inputt({ title, color, type, id }: InputtProps) {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -26,10 +33,13 @@ function Inputt({ title, color, type, id }) {
   );
 }
 
-async function lgn(navigate) {
+async function lgn(navigate: any) {
+  const emailInput = document.getElementById('username1') as HTMLInputElement;
+  const passwordInput = document.getElementById('password1') as HTMLInputElement;
+
   const { data, error } = await supabase.auth.signInWithPassword({
-    email: document.getElementById('username1').value, 
-    password: document.getElementById('password1').value  
+    email: emailInput.value, 
+    password: passwordInput.value  
   })
   if (error) {
     console.error('로그인 실패:', error.message)
@@ -39,14 +49,19 @@ async function lgn(navigate) {
   }
 }
 
-async function sgu(setIsLogin) {
-  if (document.getElementById('password2').value !== document.getElementById('password3').value) {
+async function sgu(setIsLogin: any) {
+  const p2 = document.getElementById('password2') as HTMLInputElement;
+  const p3 = document.getElementById('password3') as HTMLInputElement;
+  const u2 = document.getElementById('username2') as HTMLInputElement;
+  const n1 = document.getElementById('nickname1') as HTMLInputElement;
+
+  if (p2.value !== p3.value) {
     console.error('비밀번호가 일치하지 않습니다.')
     return
   } else {
     const { data, error } = await supabase.auth.signUp({
-      email: document.getElementById('username2').value, 
-      password: document.getElementById('password2').value  
+      email: u2.value, 
+      password: p2.value  
     })
     if (error) {
       console.error('회원가입 실패:', error.message)
@@ -54,26 +69,34 @@ async function sgu(setIsLogin) {
       console.log('회원가입 성공:', data)
       setIsLogin(true)
     }
-    const { error: dbError } = await supabase
-      .from('user')
-      .insert([
-        { 
-          id: data.user.id,
-          email: data.user.email,
-          nickname: document.getElementById('nickname1').value
-        }
-      ]);
+    
+    if (data?.user) {
+      const { error: dbError } = await supabase
+        .from('user')
+        .insert([
+          { 
+            id: data.user.id,
+            email: data.user.email,
+            nickname: n1.value
+          }
+        ]);
 
-    if (dbError) {
-      console.error('user 테이블 저장 실패:', dbError.message);
-    } else {
-      console.log('user 테이블 저장 성공!');
-      setIsLogin(true);
+      if (dbError) {
+        console.error('user 테이블 저장 실패:', dbError.message);
+      } else {
+        console.log('user 테이블 저장 성공!');
+        setIsLogin(true);
+      }
     }
   }
 }
 
-function GO({ vvalue, onClick }) {
+interface GOProps {
+  vvalue: string;
+  onClick: () => void;
+}
+
+function GO({ vvalue, onClick }: GOProps) {
   return (
     <button onClick={onClick} style={{
       marginTop: '30px',
@@ -96,7 +119,7 @@ export default function App() {
 
   useEffect(() => {
     async function fetchData() {
-      console.log('연결 시도 중인 URL:', import.meta.env.VITE_SUPABASE_URL);
+      console.log('연결 시도 중인 URL:', (import.meta as any).env.VITE_SUPABASE_URL);
 
       const { data, error } = await supabase
         .from('user')
@@ -112,13 +135,13 @@ export default function App() {
     fetchData();
 
     async function checkAuth() {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (user) {
-    navigate('/square'); 
-  }
-}
-checkAuth();
-  }, []);
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        navigate('/square'); 
+      }
+    }
+    checkAuth();
+  }, [navigate]);
 
   return (
     <div style={{
