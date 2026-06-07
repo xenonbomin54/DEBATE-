@@ -35,7 +35,7 @@ async function lgn(navigate) {
     console.error('로그인 실패:', error.message)
   } else {
     console.log('로그인 성공:', data)
-    navigate('/first')
+    navigate('/square')
   }
 }
 
@@ -114,7 +114,7 @@ export default function App() {
     async function checkAuth() {
   const { data: { user } } = await supabase.auth.getUser();
   if (user) {
-    navigate('/first'); 
+    navigate('/square'); 
   }
 }
 checkAuth();
