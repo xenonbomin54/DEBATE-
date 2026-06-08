@@ -2,12 +2,26 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabase.js';
 
+
+function Squares({}) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: '92vh' }} ></div>
+  )
+}
+
 function AAA() {
   return (
     <div style={{ width: '45vw', height: '80vh', borderRadius: '15px', display: 'flex', flexDirection: 'column' }}>
-      <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', marginBottom: '10px' }}>+</button>
+      <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', marginBottom: '10px' }} onClick={makeSquare}>+</button>
+      <div>
+        
+      </div>
     </div>  
   )
+}
+
+function makeSquare() {
+  alert('광장 만들기');
 }
 
 function BBB() {
