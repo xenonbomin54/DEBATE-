@@ -5,8 +5,9 @@ import { supabase } from './supabase.js';
 function Squares({ post }) {
   return (
     <div style={{ padding: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px', marginBottom: '10px' }}>
-      <strong style={{ fontSize: '2vh' }}>{post.title}</strong>
-      <p style={{ fontSize: '1.5vh', margin: '5px 0 0 0' }}>{post.content}</p>
+      {/* title -> value, content -> description 으로 컬럼명 일치 시키기 */}
+      <strong style={{ fontSize: '2vh' }}>{post.value}</strong>
+      <p style={{ fontSize: '1.5vh', margin: '5px 0 0 0' }}>{post.description}</p>
     </div>
   )
 }
@@ -51,7 +52,7 @@ export default function Square() {
     
     async function fetchPosts() {
       const { data, error } = await supabase
-        .from('posts')
+        .from('square')
         .select('*')
         .order('id', { ascending: false });
         
