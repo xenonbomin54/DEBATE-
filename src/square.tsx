@@ -2,19 +2,23 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabase.js';
 
-
-function Squares({}) {
+function Squares({ post }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: '92vh' }} ></div>
+    <div style={{ padding: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px', marginBottom: '10px' }}>
+      <strong style={{ fontSize: '2vh' }}>{post.title}</strong>
+      <p style={{ fontSize: '1.5vh', margin: '5px 0 0 0' }}>{post.content}</p>
+    </div>
   )
 }
 
-function AAA() {
+function AAA({ posts }) {
   return (
     <div style={{ width: '45vw', height: '80vh', borderRadius: '15px', display: 'flex', flexDirection: 'column' }}>
       <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', marginBottom: '10px' }} onClick={makeSquare}>+</button>
-      <div>
-        
+      <div style={{ overflowY: 'auto', flexGrow: 1 }}>
+        {posts.map((post) => (
+          <Squares key={post.id} post={post} />
+        ))}
       </div>
     </div>  
   )
@@ -32,6 +36,7 @@ function BBB() {
 
 export default function Square() {
   const [email, setEmail] = useState('');
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +48,20 @@ export default function Square() {
         setEmail(user.email || '');
       }
     }
+    
+    async function fetchPosts() {
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .order('id', { ascending: false });
+        
+      if (!error && data) {
+        setPosts(data);
+      }
+    }
+
     checkAuth();
+    fetchPosts();
   }, [navigate]);
 
   async function handleLogout(e: React.MouseEvent<HTMLAnchorElement>) {
@@ -73,7 +91,7 @@ export default function Square() {
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: '92vh' }} >
-        <AAA />
+        <AAA posts={posts} />
         <BBB />
       </div>
     </>
