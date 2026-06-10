@@ -15,7 +15,12 @@ function AAA({ posts }) {
   return (
     <div style={{ width: '45vw', height: '80vh', borderRadius: '15px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', marginBottom: '50px' }} onClick={makeSquare}>+</button>
-      <div style={{ overflowY: 'auto', flexGrow: 1 }}>
+      <div className="custom-scroll" style={{ overflowY: 'auto', flexGrow: 1, paddingRight: '10px' }}>
+        <style>{`
+          .custom-scroll::-webkit-scrollbar { width: 8px; }
+          .custom-scroll::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); border-radius: 10px; }
+          .custom-scroll::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
+        `}</style>
         {posts.map((post) => (
           <Squares key={post.id} post={post} />
         ))}
