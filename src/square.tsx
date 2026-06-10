@@ -4,8 +4,7 @@ import { supabase } from './supabase.js';
 
 function Squares({ post }) {
   return (
-    <div style={{ padding: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px', marginBottom: '10px' }}>
-      {/* title -> value, content -> description 으로 컬럼명 일치 시키기 */}
+    <div style={{ padding: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px', marginBottom: '20px' }}>
       <strong style={{ fontSize: '2vh' }}>{post.value}</strong>
       <p style={{ fontSize: '1.5vh', margin: '5px 0 0 0' }}>{post.description}</p>
     </div>
@@ -14,8 +13,8 @@ function Squares({ post }) {
 
 function AAA({ posts }) {
   return (
-    <div style={{ width: '45vw', height: '80vh', borderRadius: '15px', display: 'flex', flexDirection: 'column' }}>
-      <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', marginBottom: '10px' }} onClick={makeSquare}>+</button>
+    <div style={{ width: '45vw', height: '80vh', borderRadius: '15px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', marginBottom: '50px' }} onClick={makeSquare}>+</button>
       <div style={{ overflowY: 'auto', flexGrow: 1 }}>
         {posts.map((post) => (
           <Squares key={post.id} post={post} />
