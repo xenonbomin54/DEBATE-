@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabase.js';
 
@@ -11,10 +11,10 @@ function Squares({ post }) {
   )
 }
 
-function AAA({ posts }) {
+function AAA({ posts, onMakeSquareClick }) {
   return (
     <div style={{ width: '45vw', height: '80vh', borderRadius: '15px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', marginBottom: '50px' }} onClick={makeSquare}>+</button>
+      <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', marginBottom: '50px' }} onClick={onMakeSquareClick}>+</button>
       <div className="custom-scroll" style={{ overflowY: 'auto', flexGrow: 1, paddingRight: '10px' }}>
         <style>{`
           .custom-scroll::-webkit-scrollbar { width: 8px; }
@@ -29,13 +29,45 @@ function AAA({ posts }) {
   )
 }
 
-function makeSquare() {
-  alert('광장 만들기');
-}
+function BBB({ onPostSuccess, focusRef }) {
+  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('');
 
-function BBB() {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!value.trim() || !description.trim()) return;
+
+    const { error } = await supabase
+      .from('square')
+      .insert([{ value, description }]);
+
+    if (!error) {
+      setValue('');
+      setDescription('');
+      onPostSuccess();
+    }
+  }
+
   return (
-    <div style={{ width: '45vw', height: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '15px' }}></div>  
+    <div style={{ width: '45vw', height: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '15px', padding: '30px', boxSizing: 'border-box' }}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <input 
+          ref={focusRef}
+          type="text" 
+          placeholder="광장 제목을 입력하세요" 
+          value={value} 
+          onChange={(e) => setValue(e.target.value)} 
+          style={{ fontSize: '2.5vh', padding: '15px', borderRadius: '10px', border: '1px solid #ccc', marginBottom: '20px', outline: 'none' }}
+        />
+        <textarea 
+          placeholder="광장 설명을 입력하세요" 
+          value={description} 
+          onChange={(e) => setDescription(e.target.value)} 
+          style={{ fontSize: '2vh', padding: '15px', borderRadius: '10px', border: '1px solid #ccc', flexGrow: 1, marginBottom: '20px', resize: 'none', outline: 'none' }}
+        />
+        <button type="submit" style={{ fontSize: '2.5vh', padding: '15px', borderRadius: '10px', border: 'none', backgroundColor: '#000', color: '#fff', cursor: 'pointer' }}>생성하기</button>
+      </form>
+    </div>  
   )
 }
 
@@ -43,6 +75,18 @@ export default function Square() {
   const [email, setEmail] = useState('');
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+  const inputRef = useRef(null);
+
+  async function fetchPosts() {
+    const { data, error } = await supabase
+      .from('square')
+      .select('*')
+      .order('id', { ascending: false });
+      
+    if (!error && data) {
+      setPosts(data);
+    }
+  }
 
   useEffect(() => {
     async function checkAuth() {
@@ -53,29 +97,24 @@ export default function Square() {
         setEmail(user.email || '');
       }
     }
-    
-    async function fetchPosts() {
-      const { data, error } = await supabase
-        .from('square')
-        .select('*')
-        .order('id', { ascending: false });
-        
-      if (!error && data) {
-        setPosts(data);
-      }
-    }
 
     checkAuth();
     fetchPosts();
   }, [navigate]);
 
-  async function handleLogout(e: React.MouseEvent<HTMLAnchorElement>) {
+  async function handleLogout(e) {
     e.preventDefault();
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error('로그아웃 실패:', error.message);
     } else {
       navigate('/');
+    }
+  }
+
+  function handleMakeSquareClick() {
+    if (inputRef.current) {
+      inputRef.current.focus();
     }
   }
  
@@ -96,8 +135,8 @@ export default function Square() {
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: '92vh' }} >
-        <AAA posts={posts} />
-        <BBB />
+        <AAA posts={posts} onMakeSquareClick={handleMakeSquareClick} />
+        <BBB onPostSuccess={fetchPosts} focusRef={inputRef} />
       </div>
     </>
   );
