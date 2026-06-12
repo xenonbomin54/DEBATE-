@@ -74,6 +74,7 @@ function BBB({ onPostSuccess, focusRef }) {
 export default function Square() {
   const [email, setEmail] = useState('');
   const [posts, setPosts] = useState([]);
+  const [showInput, setShowInput] = useState(false);
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
@@ -113,9 +114,18 @@ export default function Square() {
   }
 
   function handleMakeSquareClick() {
-    if (inputRef.current) {
+    setShowInput(true);
+  }
+
+  useEffect(() => {
+    if (showInput && inputRef.current) {
       inputRef.current.focus();
     }
+  }, [showInput]);
+
+  function handlePostSuccess() {
+    fetchPosts();
+    setShowInput(false);
   }
  
   return (
@@ -136,7 +146,11 @@ export default function Square() {
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: '92vh' }} >
         <AAA posts={posts} onMakeSquareClick={handleMakeSquareClick} />
-        <BBB onPostSuccess={fetchPosts} focusRef={inputRef} />
+        {showInput ? (
+          <BBB onPostSuccess={handlePostSuccess} focusRef={inputRef} />
+        ) : (
+          <div style={{ width: '45vw', height: '80vh' }}></div>
+        )}
       </div>
     </>
   );
