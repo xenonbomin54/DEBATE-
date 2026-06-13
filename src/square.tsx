@@ -71,6 +71,7 @@ function BBB({ onPostSuccess, focusRef }) {
   )
 }
 
+
 export default function Square() {
   const [email, setEmail] = useState('');
   const [posts, setPosts] = useState([]);
