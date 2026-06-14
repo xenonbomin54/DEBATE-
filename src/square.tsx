@@ -2,16 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabase.js';
 
-function Squares({ post }) {
+function Squares({ post, onClick }) {
   return (
-    <div style={{ padding: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px', marginBottom: '20px' }}>
+    <div onClick={onClick} style={{ padding: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px', marginBottom: '20px', cursor: 'pointer' }}>
       <strong style={{ fontSize: '2vh' }}>{post.value}</strong>
       <p style={{ fontSize: '1.5vh', margin: '5px 0 0 0' }}>{post.description}</p>
     </div>
   )
 }
 
-function AAA({ posts, onMakeSquareClick }) {
+function AAA({ posts, onMakeSquareClick, onPostClick }) {
   return (
     <div style={{ width: '45vw', height: '80vh', borderRadius: '15px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <button style={{ fontSize: '5vh', border: 'none', cursor: 'pointer', borderRadius: '15px', backgroundColor: 'rgba(255, 255, 255, 0.7)', marginBottom: '50px' }} onClick={onMakeSquareClick}>+</button>
@@ -22,7 +22,7 @@ function AAA({ posts, onMakeSquareClick }) {
           .custom-scroll::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
         `}</style>
         {posts.map((post) => (
-          <Squares key={post.id} post={post} />
+          <Squares key={post.id} post={post} onClick={() => onPostClick(post)} />
         ))}
       </div>
     </div>  
@@ -75,6 +75,7 @@ export default function Square() {
   const [email, setEmail] = useState('');
   const [posts, setPosts] = useState([]);
   const [showInput, setShowInput] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
@@ -114,7 +115,13 @@ export default function Square() {
   }
 
   function handleMakeSquareClick() {
+    setSelectedPost(null);
     setShowInput(true);
+  }
+
+  function handlePostClick(post) {
+    setShowInput(false);
+    setSelectedPost(post);
   }
 
   useEffect(() => {
@@ -145,9 +152,14 @@ export default function Square() {
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', height: '92vh' }} >
-        <AAA posts={posts} onMakeSquareClick={handleMakeSquareClick} />
+        <AAA posts={posts} onMakeSquareClick={handleMakeSquareClick} onPostClick={handlePostClick} />
         {showInput ? (
           <BBB onPostSuccess={handlePostSuccess} focusRef={inputRef} />
+        ) : selectedPost ? (
+          <div style={{ width: '45vw', height: '80vh', backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '15px', padding: '30px', boxSizing: 'border-box' }}>
+            <h2 style={{ fontSize: '3vh', margin: '0 0 20px 0' }}>{selectedPost.value}</h2>
+            <div style={{ fontSize: '2vh', whiteSpace: 'pre-wrap' }}>{selectedPost.description}</div>
+          </div>
         ) : (
           <div style={{ width: '45vw', height: '80vh' }}></div>
         )}
